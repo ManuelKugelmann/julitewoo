@@ -66,14 +66,14 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	if(is_product() and $product->product_type == 'variable') :
 		$available_variations = $product->get_available_variations();
 		foreach( $available_variations as $variation ) :
-			$post_id = $variation['variation_id'];
-			$_pg_field = get_post_meta( $post_id, '_pg_field', true );
-			echo("<!-- variation_sku: ".$variation['sku']." post_id: ".$post_id." _pg_field: ".$_pg_field."-->");
+			$variation_post_id = $variation['variation_id'];
+			$_pg_field = get_post_meta( $variation_post_id, '_pg_field', true );
+			echo("<!-- variation_sku: ".$variation['sku']." variation_post_id: ".$variation_post_id." _pg_field: ".$_pg_field."-->");
 			if( ! empty( $_pg_field ) ) :
 			?>
-			<div class="per_variation" id="variation_<?php echo $var_id; ?>">
+			<div class="per_variation" id="variation_<?php echo $variation_post_id; ?>">
 				<?php 
-					$sc = '[productgenerator id="pg_'.$var_id.'" '.$_pg_field.']';
+					$sc = '[productgenerator id="pg_'.$variation_post_id.'" '.$_pg_field.']';
 					echo "<!-- ". $sc ." --!>";
 					echo do_shortcode($sc);
 				?>
