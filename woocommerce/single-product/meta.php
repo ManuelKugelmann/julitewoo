@@ -50,11 +50,12 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 
 	<?php endif; ?>
 	
-	
+	<div class="variations_meta">
 	<?php 
 	$variation_ids = $product->children;
 	foreach( $variation_ids as $var_id ) :
 		$_pg_field = get_post_meta( $var_id, '_pg_field', true );
+		echo("<!--".$var_id." ".$_pg_field."-->");
 		if( ! empty( $_pg_field ) ) :
 		?>
 		<div class="per_variation" id="variation_<?php echo $var_id; ?>">
@@ -68,7 +69,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 		endif;
 	endforeach; 
 	?>
-		
+	</div>	
 	<br/>
 	
 	<?php echo $product->get_categories( ', ', '<span class="posted_in">' . _n( 'Category:', 'Categories:', $cat_count, 'woocommerce' ) . ' ', '</span>' ); ?>
