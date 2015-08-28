@@ -19,14 +19,6 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 ?>
 <div class="product_meta">
 
-	<?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
-
-		<span class="sku_wrapper"><?php _e( 'SKU:', 'woocommerce' ); ?> <span class="sku" itemprop="sku"><?php echo ( $sku = $product->get_sku() ) ? $sku : __( 'N/A', 'woocommerce' ); ?></span>.</span>
-
-	<?php endif; ?>
-
-	<br/>
-	
 	<script>
 	//jQuery(window).load(function(){
 	  
@@ -51,11 +43,16 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	</script>
 
 	<?php do_action( 'woocommerce_product_meta_start' ); ?>
+
+	<?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
+
+		<span class="sku_wrapper"><?php _e( 'SKU:', 'woocommerce' ); ?> <span class="sku" itemprop="sku"><?php echo ( $sku = $product->get_sku() ) ? $sku : __( 'N/A', 'woocommerce' ); ?></span></span>
+
+	<?php endif; ?>
+	
 	
 	<?php 
-
 	$variation_ids = $product->children;
-
 	foreach( $variation_ids as $var_id ) :
 		$_pg_field = get_post_meta( $var_id, '_pg_field', true );
 		if( ! empty( $_pg_field ) ) :
@@ -67,18 +64,16 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 				echo do_shortcode($sc);
 			?>
 		</div>
-
-	<?php 
+		<?php 
 		endif;
 	endforeach; 
 	?>
 		
 	<br/>
+	
+	<?php echo $product->get_categories( ', ', '<span class="posted_in">' . _n( 'Category:', 'Categories:', $cat_count, 'woocommerce' ) . ' ', '</span>' ); ?>
 
-
-	<?php echo $product->get_categories( ', ', '<span class="posted_in">' . _n( 'Category:', 'Categories:', $cat_count, 'woocommerce' ) . ' ', '.</span>' ); ?>
-
-	<?php echo $product->get_tags( ', ', '<span class="tagged_as">' . _n( 'Tag:', 'Tags:', $tag_count, 'woocommerce' ) . ' ', '.</span>' ); ?>
+	<?php echo $product->get_tags( ', ', '<span class="tagged_as">' . _n( 'Tag:', 'Tags:', $tag_count, 'woocommerce' ) . ' ', '</span>' ); ?>
 
 	<?php do_action( 'woocommerce_product_meta_end' ); ?>
 
