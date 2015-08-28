@@ -5,6 +5,13 @@ Author: Manuel, Jonas & Julia Kugelmann
 Template: Avada
 */
 
+.pg {
+	background-color: rgba(1, 1, 56, 0.972549);
+}
+
+.pgxx {
+	background-color: rgba(36, 47, 56, 0.972549);
+}
 
 .ui-slider.ui-slider-vertical .ui-slider-handle {
  z-index: 2;
