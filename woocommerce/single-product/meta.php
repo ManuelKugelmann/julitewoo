@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-global $post, $product;
+global $woocommerce, $product, $post;
 
 $cat_count = sizeof( get_the_terms( $post->ID, 'product_cat' ) );
 $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
@@ -19,6 +19,15 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 ?>
 <div class="product_meta">
 
+	<?php do_action( 'woocommerce_product_meta_start' ); ?>
+
+	<?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
+
+		<span class="sku_wrapper"><?php _e( 'SKU:', 'woocommerce' ); ?> <span class="sku" itemprop="sku"><?php echo ( $sku = $product->get_sku() ) ? $sku : __( 'N/A', 'woocommerce' ); ?></span></span>
+
+	<?php endif; ?>
+	
+	<div class="variations_meta">
 	<script>
 	//jQuery(window).load(function(){
 	  
@@ -41,33 +50,31 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 
 	//});
 	</script>
-
-	<?php do_action( 'woocommerce_product_meta_start' ); ?>
-
-	<?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
-
-		<span class="sku_wrapper"><?php _e( 'SKU:', 'woocommerce' ); ?> <span class="sku" itemprop="sku"><?php echo ( $sku = $product->get_sku() ) ? $sku : __( 'N/A', 'woocommerce' ); ?></span></span>
-
-	<?php endif; ?>
-	
-	<div class="variations_meta">
 	<?php 
-	$variation_ids = $product->children;
-	foreach( $variation_ids as $var_id ) :
-		$_pg_field = get_post_meta( $var_id, '_pg_field', true );
-		echo("<!--".$var_id." ".$_pg_field."-->");
-		if( ! empty( $_pg_field ) ) :
-		?>
-		<div class="per_variation" id="variation_<?php echo $var_id; ?>">
-			<?php 
-				$sc = '[productgenerator id="pg_'.$var_id.'" '.$_pg_field.']';
-				echo "<!-- ". $sc ." --!>";
-				echo do_shortcode($sc);
+	if(is_product() and $product->product_type == 'variable') :
+		$available_variations = $product->get_available_variations();
+		foreach( $available_variations as $variation ) :
+			$post_id = $variation['variation_id'];
+			echo("<!-- variation: ".$variation." post_id: ".$post_id."-->");
+			endif;
+		endforeach;
+		$variation_ids = $product->children;
+		foreach( $variation_ids as $var_id ) :
+			$_pg_field = get_post_meta( $var_id, '_pg_field', true );
+			echo("<!-- var_id: ".$var_id." _pg_field: ".$_pg_field."-->");
+			if( ! empty( $_pg_field ) ) :
 			?>
-		</div>
-		<?php 
-		endif;
-	endforeach; 
+			<div class="per_variation" id="variation_<?php echo $var_id; ?>">
+				<?php 
+					$sc = '[productgenerator id="pg_'.$var_id.'" '.$_pg_field.']';
+					echo "<!-- ". $sc ." --!>";
+					echo do_shortcode($sc);
+				?>
+			</div>
+			<?php 
+			endif;
+		endforeach;
+	endif;
 	?>
 	</div>	
 	<br/>
