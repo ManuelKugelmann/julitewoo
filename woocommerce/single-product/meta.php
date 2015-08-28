@@ -55,12 +55,8 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 		$available_variations = $product->get_available_variations();
 		foreach( $available_variations as $variation ) :
 			$post_id = $variation['variation_id'];
-			echo("<!-- variation: ".$variation." post_id: ".$post_id."-->");
-		endforeach;
-		$variation_ids = $product->children;
-		foreach( $variation_ids as $var_id ) :
-			$_pg_field = get_post_meta( $var_id, '_pg_field', true );
-			echo("<!-- var_id: ".$var_id." _pg_field: ".$_pg_field."-->");
+			$_pg_field = get_post_meta( $post_id, '_pg_field', true );
+			echo("<!-- variation_sku: ".$variation['sku']." post_id: ".$post_id." _pg_field: ".$_pg_field."-->");
 			if( ! empty( $_pg_field ) ) :
 			?>
 			<div class="per_variation" id="variation_<?php echo $var_id; ?>">
