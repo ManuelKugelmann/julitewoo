@@ -56,7 +56,6 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 		foreach( $available_variations as $variation ) :
 			$post_id = $variation['variation_id'];
 			echo("<!-- variation: ".$variation." post_id: ".$post_id."-->");
-			endif;
 		endforeach;
 		$variation_ids = $product->children;
 		foreach( $variation_ids as $var_id ) :
