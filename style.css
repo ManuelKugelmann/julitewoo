@@ -1,7 +1,7 @@
 /*
 Theme Name: julitewoo (Avada Child)
 Description: Child theme for the Avada
-Version: 0.0.8
+Version: 0.0.9
 Author: Manuel, Jonas & Julia Kugelmann
 Template: Avada
 */
@@ -19,7 +19,7 @@ Template: Avada
  width: 16px;
  height: 16px;
  top: auto !important;
- left: 14px;
+ left: 12px;
  outline: none;
 }
 
