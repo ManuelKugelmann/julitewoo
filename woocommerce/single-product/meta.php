@@ -19,6 +19,39 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 ?>
 <div class="product_meta">
 
+	<script>
+	
+		function updateVisibility(var_id)
+		{
+			// Display only the custom_variation div with the specific id
+			jQuery( '.per_variation#variation_' + var_id ).css( 'display', 'block' );
+			
+			//var sliderObj = jQuery( "#pg_"+var_id+"_slider" );
+			//sliderObj.slider('value', pg_value);
+			
+			var pgObj = jQuery( "#pg_"+var_id+"_pg" );
+			pgObj.trigger('update');
+		}
+	
+		//jQuery(window).load(function(){
+		
+			//jQuery('.per_variation').css( 'display', 'none' );
+			var var_id = jQuery('input.variation_id').val();
+			updateVisibility(var_id);
+		  
+			// get the specific select element by id #model
+			jQuery('input.variation_id').change(function() {    
+				// Hide all custom_variation divs
+				jQuery('.per_variation').css( 'display', 'none' );
+				
+				var var_id =  jQuery(this).val();
+				updateVisibility(var_id);
+			});
+
+		//});
+		
+	</script>
+
 	<?php do_action( 'woocommerce_product_meta_start' ); ?>
 
 	<?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
@@ -28,28 +61,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	<?php endif; ?>
 	
 	<div class="variations_meta">
-	<script>
-	//jQuery(window).load(function(){
-	  
-		// get the specific select element by id #model
-		jQuery('input.variation_id').change(function() {    
-			var var_id =  jQuery( this ).val();
 	
-			// Hide all custom_variation divs
-			jQuery( '.per_variation').css( 'display', 'none' );
-			
-			// Display only the custom_variation div with the specific id
-			jQuery( '.per_variation#variation_' + var_id ).css( 'display', 'block' );
-			
-			//var sliderObj = jQuery( "#pg_"+var_id+"_slider" );
-			//sliderObj.slider('value', pg_value);
-			
-			var pgObj = jQuery( "#pg_"+var_id+"_pg" );
-			pgObj.trigger('update');
-		});
-
-	//});
-	</script>
 	<?php 
 	if(is_product() and $product->product_type == 'variable') :
 		$available_variations = $product->get_available_variations();
