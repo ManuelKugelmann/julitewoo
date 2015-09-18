@@ -81,8 +81,8 @@ function variable_fields( $loop, $variation_data , $variation ) {
 			$variation_id = $variation->ID;
 			$_pg_field  = get_post_meta( $variation_id , '_pg_field', true );
 			
-			echo "</br>";
-			echo "</br>";  
+			/*
+			echo "</br>"; 
 			var_dump($variation_data); 
 			echo "</br>";
 			echo "</br>";
@@ -93,6 +93,7 @@ function variable_fields( $loop, $variation_data , $variation ) {
 			echo "</br>";
 			echo "</br>"."_pg_field : ". $_pg_field ."</br>";
 			echo "</br>";
+			*/
 
 			woocommerce_wp_text_input( 
 				array( 
@@ -155,9 +156,7 @@ function save_variable_fields( $variation_id , $i) {
 
 	if (isset( $_POST['_pg_field'][$i] ) ) :
 		$_pg_field = stripslashes($_POST['_pg_field'][$i]);
-			echo "</br>";
-			echo "</br>"."_pg_field : ". $_pg_field ."</br>";
-			echo "</br>";
+			//echo "</br>"."saved: _pg_field = ". $_pg_field ."</br>";
 		update_post_meta( $variation_id, '_pg_field', $_pg_field );
 	endif;
 	
