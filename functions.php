@@ -57,13 +57,13 @@ http://www.xisign.com/codes/woocommerce-custom-fields-fuer-variations/
 //add_action( 'woocommerce_after_add_to_cart_form', 'variable_display', 8, 0 );
 
 //Display Fields
-add_action( 'woocommerce_product_after_variable_attributes', 'variable_fields', 10,3 );
+add_action( 'woocommerce_product_after_variable_attributes', 'variable_fields', 10, 3 );
 //add_action( 'woocommerce_variation_options', 'variable_fields', 12, 3 );
 //JS to add fields for new variations
 //add_action( 'woocommerce_product_after_variable_attributes_js', 'variable_fields_js' );
 //Save variation fields
 //add_action( 'woocommerce_process_product_meta_variable', 'save_variable_fields', 12, 1 );
-add_action( 'woocommerce_save_product_variation', 'save_variable_fields', 10, 1 );
+add_action( 'woocommerce_save_product_variation', 'save_variable_fields', 10, 2 );
 /**
  * Create new fields for variations
  *
