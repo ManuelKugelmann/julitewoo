@@ -74,18 +74,20 @@ function variable_fields( $loop, $variation_data , $variation ) {
 		</br>
 			<?php
 
+			/*
 			echo "</br>";  
 			var_dump($variation_data); 
 			echo "</br>";
 			var_dump($variation); 
 			echo "</br>";
+			*/
 			
 			//$_pg_field = $variation_data['_pg_field'][0]
 			$variation_id = $variation->ID;
 			$_pg_field  = get_post_meta( $variation_id , '_pg_field', true );
 			
-			var_dump($_pg_field); 
-			echo "</br>"."_pg_field : ". $_pg_field ."</br>";
+			//var_dump($_pg_field); 
+			//echo "</br>"."_pg_field : ". $_pg_field ."</br>";
 
 			woocommerce_wp_text_input( 
 				array( 
