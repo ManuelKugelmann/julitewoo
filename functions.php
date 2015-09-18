@@ -52,6 +52,7 @@ function woocommerce_sidebar()
 */
 
 // http://wordpress.stackexchange.com/questions/180590/save-custom-fields-for-variations-product
+http://www.xisign.com/codes/woocommerce-custom-fields-fuer-variations/
 
 //add_action( 'woocommerce_after_add_to_cart_form', 'variable_display', 8, 0 );
 
@@ -59,7 +60,7 @@ function woocommerce_sidebar()
 add_action( 'woocommerce_product_after_variable_attributes', 'variable_fields', 12,3 );
 //add_action( 'woocommerce_variation_options', 'variable_fields', 12, 3 );
 //JS to add fields for new variations
-add_action( 'woocommerce_product_after_variable_attributes_js', 'variable_fields_js' );
+//add_action( 'woocommerce_product_after_variable_attributes_js', 'variable_fields_js' );
 //Save variation fields
 //add_action( 'woocommerce_process_product_meta_variable', 'save_variable_fields', 12, 1 );
 add_action( 'woocommerce_save_product_variation', 'save_variable_fields', 12, 1 );
@@ -68,6 +69,8 @@ add_action( 'woocommerce_save_product_variation', 'save_variable_fields', 12, 1 
  *
 */
 function variable_fields( $loop, $variation_data , $variation ) {
+    global $post;
+    if (!$post) $post = get_post($variation->ID);	
 ?>
 	<tr>
 		<td>
@@ -112,6 +115,7 @@ function variable_fields( $loop, $variation_data , $variation ) {
  * Create new fields for new variations
  *
 */
+/*
 function variable_fields_js() {
 ?>
 	<tr>
@@ -138,11 +142,23 @@ function variable_fields_js() {
 	</tr>
    <?php
 }
+*/
 
 /**
  * Save new fields for variations
  *
 */
+//http://www.xisign.com/codes/woocommerce-custom-fields-fuer-variations/
+function save_variable_fields( $variation_id , $i) {
+
+	if (isset( $_POST['_pg_field'][$i] ) ) :
+		$_pg_field = stripslashes($_POST['_pg_field'][$i]);
+		update_post_meta( $variation_id, '_pg_field', $_pg_field );
+	endif;
+	
+}
+
+/*
 function save_variable_fields( $post_id ) {
 
 	if (isset( $_POST['variable_sku'] ) ) :
@@ -161,3 +177,4 @@ function save_variable_fields( $post_id ) {
 		
 	endif;
 }
+*/
