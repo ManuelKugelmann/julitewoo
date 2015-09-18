@@ -57,13 +57,13 @@ http://www.xisign.com/codes/woocommerce-custom-fields-fuer-variations/
 //add_action( 'woocommerce_after_add_to_cart_form', 'variable_display', 8, 0 );
 
 //Display Fields
-add_action( 'woocommerce_product_after_variable_attributes', 'variable_fields', 12,3 );
+add_action( 'woocommerce_product_after_variable_attributes', 'variable_fields', 10,3 );
 //add_action( 'woocommerce_variation_options', 'variable_fields', 12, 3 );
 //JS to add fields for new variations
 //add_action( 'woocommerce_product_after_variable_attributes_js', 'variable_fields_js' );
 //Save variation fields
 //add_action( 'woocommerce_process_product_meta_variable', 'save_variable_fields', 12, 1 );
-add_action( 'woocommerce_save_product_variation', 'save_variable_fields', 12, 1 );
+add_action( 'woocommerce_save_product_variation', 'save_variable_fields', 10, 1 );
 /**
  * Create new fields for variations
  *
@@ -77,20 +77,22 @@ function variable_fields( $loop, $variation_data , $variation ) {
 		</br>
 			<?php
 
-			/*
-			echo "</br>";  
-			var_dump($variation_data); 
-			echo "</br>";
-			var_dump($variation); 
-			echo "</br>";
-			*/
-			
 			//$_pg_field = $variation_data['_pg_field'][0]
 			$variation_id = $variation->ID;
 			$_pg_field  = get_post_meta( $variation_id , '_pg_field', true );
 			
-			//var_dump($_pg_field); 
-			//echo "</br>"."_pg_field : ". $_pg_field ."</br>";
+			echo "</br>";
+			echo "</br>";  
+			var_dump($variation_data); 
+			echo "</br>";
+			echo "</br>";
+			var_dump($variation); 
+			echo "</br>";
+			echo "</br>";
+			var_dump($_pg_field); 
+			echo "</br>";
+			echo "</br>"."_pg_field : ". $_pg_field ."</br>";
+			echo "</br>";
 
 			woocommerce_wp_text_input( 
 				array( 
@@ -153,6 +155,9 @@ function save_variable_fields( $variation_id , $i) {
 
 	if (isset( $_POST['_pg_field'][$i] ) ) :
 		$_pg_field = stripslashes($_POST['_pg_field'][$i]);
+			echo "</br>";
+			echo "</br>"."_pg_field : ". $_pg_field ."</br>";
+			echo "</br>";
 		update_post_meta( $variation_id, '_pg_field', $_pg_field );
 	endif;
 	
