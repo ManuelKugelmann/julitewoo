@@ -51,15 +51,18 @@ function woocommerce_sidebar()
  *
 */
 
+// http://wordpress.stackexchange.com/questions/180590/save-custom-fields-for-variations-product
+
 //add_action( 'woocommerce_after_add_to_cart_form', 'variable_display', 8, 0 );
 
 //Display Fields
 add_action( 'woocommerce_product_after_variable_attributes', 'variable_fields', 12,3 );
+//add_action( 'woocommerce_variation_options', 'variable_fields', 12, 3 );
 //JS to add fields for new variations
 add_action( 'woocommerce_product_after_variable_attributes_js', 'variable_fields_js' );
 //Save variation fields
-add_action( 'woocommerce_process_product_meta_variable', 'save_variable_fields', 12, 1 );
-
+//add_action( 'woocommerce_process_product_meta_variable', 'save_variable_fields', 12, 1 );
+add_action( 'woocommerce_save_product_variation', 'save_variable_fields', 12, 1 );
 /**
  * Create new fields for variations
  *
@@ -71,22 +74,18 @@ function variable_fields( $loop, $variation_data , $variation ) {
 		</br>
 			<?php
 
-	
-			/*				
 			echo "</br>";  
 			var_dump($variation_data); 
 			echo "</br>";
 			var_dump($variation); 
 			echo "</br>";
-			*/
 			
 			//$_pg_field = $variation_data['_pg_field'][0]
-			
 			$variation_id = $variation->ID;
 			$_pg_field  = get_post_meta( $variation_id , '_pg_field', true );
 			
-			//var_dump($_pg_field); 
-			//echo "</br>"."_pg_field : ". $_pg_field ."</br>";
+			var_dump($_pg_field); 
+			echo "</br>"."_pg_field : ". $_pg_field ."</br>";
 
 			woocommerce_wp_text_input( 
 				array( 
@@ -121,7 +120,6 @@ function variable_fields_js() {
 			$variation_id = $variation->ID;
 			$_pg_field  = get_post_meta( $variation_id , '_pg_field', true );
 	
-			
 			woocommerce_wp_text_input( 
 				array( 
 					'id'          => '_pg_field[ + loop + ]', 
@@ -138,7 +136,6 @@ function variable_fields_js() {
 	</tr>
    <?php
 }
-
 
 /**
  * Save new fields for variations
