@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $woocommerce, $product, $post;
+global $woocommerce;
 
 $attribute_keys = array_keys( $attributes );
 
@@ -43,20 +43,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 							?>
 						</td>
 					</tr>
-		        <?php endforeach;?>
-
-				  <tr>
-					<td class="label"></td>
-					<td class="value">
-						<div class="single_variation_price_reset">
-						<div class="single_variation_wrap" style="display:none;">
-							<div class="single_variation"></div>
-						</div>
-						<?php echo end( $attribute_keys ) === $attribute_name ? '<a class="reset_variations" href="#">' . __( 'Clear selection', 'woocommerce' ) . '</a>' : ''; ?>
-						</div>
-					</td>
-				</tr>
-		
+		        <?php endforeach;?>		
 			</tbody>
 		</table>
 
@@ -77,16 +64,6 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 				 * @hooked woocommerce_single_variation_add_to_cart_button - 20 Qty and cart button.
 				 */
 				do_action( 'woocommerce_single_variation' );
-
-				<div class="variations_button">
-					<!--
-					<?php woocommerce_quantity_input( array( 'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( $_POST['quantity'] ) : 1 ) ); ?>
-					<button type="submit" class="single_add_to_cart_button fusion-button button-default button-small alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
-					-->
-					<input type="hidden" name="add-to-cart" value="<?php echo absint( $product->id ); ?>" />
-					<input type="hidden" name="product_id" value="<?php echo absint( $product->id ); ?>" />
-					<input type="hidden" name="variation_id" class="variation_id" value="" />
-				</div>
 				
 				/**
 				 * woocommerce_after_single_variation Hook.
