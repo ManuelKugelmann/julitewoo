@@ -91,6 +91,4 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 </form>
 
-<?php do_action( 'woocommerce_after_add_to_cart_form' );
-
-// Omit closing PHP tag to avoid "Headers already sent" issues.
+<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
