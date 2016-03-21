@@ -72,8 +72,6 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	
 	<div class="variations_meta">
 	<?php 
-	error_reporting(E_ALL);
-	ini_set('display_errors', 1);
 	if(is_product() and $product->product_type == 'variable') :
 		$available_variations = $product->get_available_variations();
 		foreach( $available_variations as $variation ) :
@@ -84,9 +82,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 			?>
 			<div class="per_variation" id="variation_<?php echo $variation_post_id; ?>">
 				<?php 
-					$sc = '[productgenerator id="pg_'.$variation_post_id.'" '.$_pg_field.']';
 					echo "<!-- ". $sc ." --!>";
-					echo do_shortcode($sc);
 				?>
 			</div>
 			<?php 
