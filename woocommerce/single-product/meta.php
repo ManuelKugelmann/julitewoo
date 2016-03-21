@@ -68,7 +68,6 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 
 	<?php endif; ?>
 	
-
 	
 	<div class="variations_meta">
 	<?php 
@@ -84,6 +83,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 				<?php 
 					$sc = '[productgenerator id="pg_'.$variation_post_id.'" '.$_pg_field.']';
 					echo "<!-- ". $sc ." --!>";
+					echo do_shortcode($sc);
 				?>
 			</div>
 			<?php 
