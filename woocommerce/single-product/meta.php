@@ -67,6 +67,36 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 		<span class="sku_wrapper"><?php _e( 'SKU:', 'woocommerce' ); ?> <span class="sku" itemprop="sku"><?php echo ( $sku = $product->get_sku() ) ? $sku : __( 'N/A', 'woocommerce' ); ?></span></span>
 
 	<?php endif; ?>
+	
+
+	
+	<div class="variations_meta">
+	<?php 
+	error_reporting(E_ALL);
+	ini_set('display_errors', 1);
+	if(is_product() and $product->product_type == 'variable') :
+		$available_variations = $product->get_available_variations();
+		foreach( $available_variations as $variation ) :
+			$variation_post_id = $variation['variation_id'];
+			$_pg_field = get_post_meta( $variation_post_id, '_pg_field', true );
+			echo("<!-- variation_sku: ".$variation['sku']." variation_post_id: ".$variation_post_id." _pg_field: ".$_pg_field."-->");
+			if( ! empty( $_pg_field ) ) :
+			?>
+			<div class="per_variation" id="variation_<?php echo $variation_post_id; ?>">
+				<?php 
+					$sc = '[productgenerator id="pg_'.$variation_post_id.'" '.$_pg_field.']';
+					echo "<!-- ". $sc ." --!>";
+					echo do_shortcode($sc);
+				?>
+			</div>
+			<?php 
+			endif;
+		endforeach;
+	endif;
+	?>
+	</div>	
+	<br/>
+	
 
 	<?php echo $product->get_categories( ', ', '<span class="posted_in">' . _n( 'Category:', 'Categories:', $cat_count, 'woocommerce' ) . ' ', '</span>' ); ?>
 
