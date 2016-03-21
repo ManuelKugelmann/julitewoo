@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $woocommerce;
+global $woocommerce, $product;
 
 $attribute_keys = array_keys( $attributes );
 
@@ -50,13 +50,16 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 		<?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
 		
 
-		<div class="single_variation_wrap" style="display:none;">
+		<div class="single_variation_wrap">
 			<?php
 				/**
 				 * woocommerce_before_single_variation Hook.
 				 */
 				do_action( 'woocommerce_before_single_variation' );
 
+				<input type="hidden" name="product_id" value="<?php echo absint( $product->id ); ?>" />
+				<input type="hidden" name="variation_id" class="variation_id" value="" />
+				
 				/**
 				 * woocommerce_single_variation hook. Used to output the cart button and placeholder for variation data.
 				 * @since 2.4.0
