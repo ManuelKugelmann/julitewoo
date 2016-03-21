@@ -82,6 +82,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 			?>
 			<div class="per_variation" id="variation_<?php echo $variation_post_id; ?>">
 				<?php 
+					$sc = '[productgenerator id="pg_'.$variation_post_id.'" '.$_pg_field.']';
 					echo "<!-- ". $sc ." --!>";
 				?>
 			</div>
