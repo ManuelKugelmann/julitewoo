@@ -35,7 +35,6 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 						</td>
 					</tr>
 		        <?php endforeach;?>
-				  <?php //Avada edit ?>
 				  <tr>
 					<td class="label"></td>
 					<td class="value">
@@ -51,10 +50,9 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 		</table>
 
 		<?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
-		<?php //Avada edit ?>
 
 
-		<div class="single_variation_wrap" style="display:none;">
+		<div class="single_variation_wrap">
 			<?php
 			/**
 			 * woocommerce_before_single_variation Hook
@@ -72,6 +70,15 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 			</div>			
 
 			<?php 
+			
+			/**
+			 * woocommerce_single_variation hook. Used to output the cart button and placeholder for variation data.
+			 * @since 2.4.0
+			 * @hooked woocommerce_single_variation - 10 Empty div for variation data.
+			 * @hooked woocommerce_single_variation_add_to_cart_button - 20 Qty and cart button.
+			 */
+			do_action( 'woocommerce_single_variation' );
+			
 			/**
 			 * woocommerce_after_single_variation Hook
 			 */
